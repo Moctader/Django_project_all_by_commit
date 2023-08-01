@@ -45,3 +45,24 @@ class StudentData(forms.Form):
     age =forms.IntegerField(validators=[validators.MaxValueValidator(25, message="value less than 25"),
         validators.MinValueValidator(14, message="value should more than 14")])
     file=forms.FileField(validators=[validators.FileExtensionValidator(allowed_extensions=['pdf'], message="only pdf is excepted")])
+    
+
+class passwordValidationProject(forms.Form):
+    name=forms.CharField(widget=forms.TextInput)
+    password=forms.CharField(widget=forms.PasswordInput)
+    confirm_password=forms.CharField(widget=forms.PasswordInput)
+    
+    
+    def clean(self):
+        cleaned_data=super().clean()
+        val_name=self.cleaned_data['name']
+        val_pass=self.cleaned_data['password']
+        val_re_pass=self.cleaned_data['confirm_password']
+        
+        if val_pass != val_re_pass:
+            raise forms.ValidationError('password is not matching')
+    
+        if len(val_name)<10:
+            raise forms.ValidationError("name should more than 10 character")
+        
+        

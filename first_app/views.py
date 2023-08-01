@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from . forms import contactForm, StudentData
+from . forms import contactForm, StudentData, passwordValidationProject
 from django.core import validators
 # Create your views here.
 def home(request):
@@ -50,13 +50,22 @@ def submit_form(request):
 #         form=contactForm()
 #     return render(request,'./first_app/django_form.html', {'form':form})
 
-def StudentForm(request):
+# def StudentForm(request):
+#     if request.method == "POST":
+#         form=StudentData(request.POST, request.FILES)
+#         if form.is_valid():
+#             print(form.cleaned_data)
+#     else:
+#         form=StudentData()
+#     return render(request, './first_app/django_form.html',{'form':form})
+
+def password_project(request):
     if request.method == "POST":
-        form=StudentData(request.POST, request.FILES)
+        form=passwordValidationProject(request.POST, request.FILES)
         if form.is_valid():
             print(form.cleaned_data)
     else:
-        form=StudentData()
+        form=passwordValidationProject()
     return render(request, './first_app/django_form.html',{'form':form})
         
         
