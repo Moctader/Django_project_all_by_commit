@@ -16,3 +16,17 @@ class contactForm(forms.Form):
     choice=forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
     MEAL=[('p','peparoni'),('M','Mashroom'),('B', 'Beef')]
     pizza=forms.MultipleChoiceField(choices=MEAL, widget=forms.CheckboxSelectMultiple)
+    
+class StudentData(forms.Form):
+    name=forms.CharField(widget=forms.TextInput)
+    email=forms.CharField(widget=forms.TextInput)
+    
+    def clean(self):
+        cleaned_dat=super().clean()
+        valname=self.cleaned_data['name']
+        valemail=self.cleaned_data['email']
+        
+        if len(valname)<10:
+            raise forms.ValidationError('Enter a name atleast 10 characters')
+        if ".com" not in valemail:
+            raise forms.ValidationError("Your email must contain .com")
